@@ -6,6 +6,15 @@
   <body>
     <h1>Item Description</h1>
     
+  <%-- code found here: https://stackoverflow.com/questions/45307836/placing-button-on-bottom-right-corner-of-jsp-page --%>>
+<span style="float:right"></span><a href="cart.jsp">Cart</a></span>
+
+   <%-- code found here: http://localhost:8080/examples/jsp/num/numguess.jsp.html--%>
+  <form method=get>
+  	<b>Search on Spartan Supplies:</b>  <input type=text name=guess>
+ 	 <input type=submit value="Submit">
+  </form>
+   
     <table border="1">
       <tr>
         <td>Item Type</td>
@@ -16,19 +25,20 @@
         <td>Item Author</td>
         
    </tr>
+  
     <% 
      String db = "cs157a_team8_database";
         String user; // assumes database name is the same as username
           user = "root";
         String password = "root";
         try {
-            
+           
             java.sql.Connection con; 
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs157a_team8_database?autoReconnect=true&useSSL=false",user, password);
-            out.println(db + " database successfully opened.<br/><br/>");
+            //out.println(db + " database successfully opened.<br/><br/>");
             
-            out.println("Initial entries in table \"item_description\": <br/>");
+            //out.println("Initial entries in table \"item_description\": <br/>");
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM item_description");
             while (rs.next()) {
