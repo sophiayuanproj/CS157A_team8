@@ -3,9 +3,11 @@
 
 <%
 	String email = request.getParameter("email");
+	String name = request.getParameter("name");
 	String accountPassword = request.getParameter("password");
 	
 	out.println(email);
+	out.println(name);
 	out.println(accountPassword);
 	
 	String db = "cs157a_team8_database";
@@ -18,7 +20,7 @@
 		
 		Statement statement = connection.createStatement();
 
-		int i = statement.executeUpdate("INSERT INTO login(email, password) VALUES('" + email + "','"+ accountPassword +"')");
+		int i = statement.executeUpdate("INSERT INTO users(name, email, password) VALUES('" + name + "','" + email + "','" + accountPassword +"')");
 		out.println("Data is successfully inserted!");
 	}
 	catch(Exception e) {

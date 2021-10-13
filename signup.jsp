@@ -7,16 +7,13 @@
 		<title>Sign Up</title>
 	</head>
 	
-	<!-- 
-	In database, we can do
-	email VARCHAR(something)
-	password VARCHAR(something)
-	-->
-	
 	<body>  
 		<h1>Sign Up</h1>
 		<form action="signupProcess.jsp" method="POST">
 			<div class="container">
+				<label for="name"><b>Name</b></label>
+				<input type="text" placeholder="Enter Name" name="name" required>
+			
 				<label for="email"><b>Email</b></label>
 				<input type="email" placeholder="Enter Email" name="email" required>
 				
