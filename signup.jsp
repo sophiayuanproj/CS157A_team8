@@ -9,34 +9,22 @@
 	
 	<!-- 
 	In database, we can do
-	
 	email VARCHAR(something)
 	password VARCHAR(something)
-	
-	Could improve security through a salt
-	salt CHAR(5)
 	-->
 	
 	<body>  
 		<h1>Sign Up</h1>
-		<form action="signup.jsp" method="POST">
+		<form action="signupProcess.jsp" method="POST">
 			<div class="container">
 				<label for="email"><b>Email</b></label>
-				<input type="text" placeholder="Enter Email" name="email" required>
+				<input type="email" placeholder="Enter Email" name="email" required>
 				
 				<label for="password"><b>Password</b></label>
 				<input type="password" placeholder="Enter Password" name="password" required>
 				
-				<label for="passwordRepeat"><b>Repeat Password</b></label>
-				<input type="password" placeholder="Repeat Password" name="passwordRepeat" required>
-				
-				<div class="buttonBlock">
-				  <button type="button" class="cancelButton">Cancel</button>
-				  <button type="submit" class="signupButton">Sign Up</button>
-				</div>
+				<input type="submit" value="Sign Up">
 			</div>
 		</form>
-		
-		
 	</body>  
 </html>  
