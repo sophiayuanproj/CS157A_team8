@@ -10,9 +10,13 @@
     <h1>Find Supplies for your class here!</h1>
     
      <form method=get>
-  	<b>Enter class name and number (e.g. CS157A):</b>  <input type=text name=guess>
+  	<b>Enter class name(e.g. CS):</b>  <input type=text name=guess>
  	 <input type=submit value="Submit">
   </form>
+    <form method=get>
+        <b>Enter class code(e.g. 157A):</b>  <input type=text name=guess>
+        <input type=submit value="Submit">
+    </form>
 
 </body>
 </html>

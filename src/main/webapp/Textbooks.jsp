@@ -9,7 +9,7 @@
 </head>
 <body>
     <h1>Textbooks</h1>
-      <span style="float:right"></span><a href="team8.jsp">Back</a></span>
+      <span style="float:right"></span><a href="itemMainScreen.jsp">Back</a></span>
          
     <table border="1">
       <tr>
@@ -33,13 +33,13 @@
             java.sql.Connection con; 
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs157a_team8_database?autoReconnect=true&useSSL=false",user, password);
-            out.println(db + " database successfully opened.<br/><br/>");
+            //out.println(db + " database successfully opened.<br/><br/>");
             
             Statement stmt = con.createStatement();
             
-            ResultSet rs = stmt.executeQuery("SELECT * FROM item_description WHERE itemType = \"Textbook\"");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Textbooks");
             while (rs.next()) {
-                out.println(rs.getString(1) + " " + rs.getInt(2) + " " + rs.getString(3) + " " + rs.getInt(4) + " " + rs.getString(5)+ " " + rs.getString(6) + "<br/><br/>");
+                out.println(rs.getInt(1) + " " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getString(4) + " " + rs.getString(5)+ " " + rs.getString(6) + "<br/><br/>");
             } 
             
             
