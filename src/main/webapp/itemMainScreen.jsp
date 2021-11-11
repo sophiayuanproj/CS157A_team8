@@ -1,28 +1,77 @@
 <%@ page import="java.sql.*"%>
+<%@ page import="com.cs157a.spartanstore.UserBean" %>
+
 <html>
   <head>
-    <title>Spartan Supplies- Item Description</title>
-    </head>
-  <body>
-    <h1>Welcome to Spartan Supplies!</h1>
-    <form action="Cart.jsp">
-        <input type="submit" value="Cart" />
-    </form>
-    <form action="messages.jsp">
-        <input type="submit" value="Messages" />
-    </form>
-<%--<span style="float:right"></span><a href="Cart.jsp">Cart</a></span>--%>
+      <style>
+          body{
+              font-family: Arial;
+          }
+          .center {
+              display: block;
+              margin-left: auto;
+              margin-right: auto;
+          }
 
-      <form id = "searchForm" method = "post" action = "itemMainScreen.jsp" class = "form-horizontal">
+          .upperLabel {
+              overflow: hidden;
+              background-color: #474A47;
+          }
+
+          .upperLabel a {
+              float: right;
+              font-size: 15px;
+              color: #ffffff;
+              padding: 14px 20px;
+          }
+      </style>
+      <title>Spartan Supplies- Item Description</title>
+  </head>
+
+  <body>
+      <div class="upperLabel">
+          <a href="login.jsp">Login</a>
+          <a href="Apparel.jsp">Apparel</a>
+          <a href="Textbooks.jsp">Textbook</a>
+          <a href="Utilities.jsp">Utilities</a>
+          <a href="Technologies.jsp">Technologies</a>
+          <a href="homeScreen.jsp">Home</a>
+      </div>
+<%--    <h1>Welcome to Spartan Supplies!</h1>--%>
+      <div>
+          <img src="images/s_s.png" align="left" style = "display: block; width: 15%; height: 15%;" border="0">
+      </div>
+      <br>
+      <a href="Cart.jsp"><img style="float:right" src="images/cart.png" width="50" height="50"></a>
+      <br>
+      <br>
+      <br>
+      <%--<span style="float:right"></span><a href="Cart.jsp">Cart</a></span>--%>
+
+      <form align = "right" id = "searchForm" method = "post" action = "itemMainScreen.jsp" class = "form-horizontal">
         <b>Search on Spartan Supplies:</b>  <input type="text" placeholder="Search item name..." name = "searchQuery" id = "searchQuery" name = "Search">
          <input type=submit value="Submit">
       </form>
 
-    <span style="float:right"></span><a href="searchClass.jsp">Search for your class here!</a></span>
-   <br>
-    <br>
+      <div>
+          <%
+              UserBean currentUser = null;
+              currentUser = (UserBean) session.getAttribute("currentSessionUser");
+              if (currentUser == null) {
+                  out.println("Welcome! Please login.");
+              }
+              else {
+                  out.println("Welcome " + currentUser.getEmail());
+              }
+          %>
+      </div>
+
+    <span style="float:right"><a href="searchClass.jsp">Search for your class here!</a></span>
+      <br>
+      <br>
     <u><b>Filter</b></u>
 <%--Scroll down for the rest of the filter--%>
+
     <% 
      String db = "cs157a_team8_database";
         String user; // assumes database name is the same as username
@@ -45,13 +94,14 @@
 
             out.println("<table border=\"1\" align=\"right\">\n" +
                     "        <tr>\n" +
-                    "            <th width=\"200\">Name</th>\n" +
-                    "            <th width=\"200\">Stock</th>\n" +
-                    "            <th width=\"200\">Grade</th>\n" +
-                    "            <th width=\"200\">Status</th>\n" +
-                    "            <th width=\"200\">Rating</th>\n" +
-                    "            <th width=\"200\">Class</th>\n" +
-                    "            <th width=\"200\">Price</th>\n" +
+                    "            <th width=\"175\">Image</th>\n" +
+                    "            <th width=\"175\">Name</th>\n" +
+                    "            <th width=\"175\">Stock</th>\n" +
+                    "            <th width=\"175\">Grade</th>\n" +
+                    "            <th width=\"175\">Status</th>\n" +
+                    "            <th width=\"175\">Rating</th>\n" +
+                    "            <th width=\"175\">Class</th>\n" +
+                    "            <th width=\"175\">Price</th>\n" +
                     "        </tr>\n");
 
             String filter = request.getParameter("$10-$500");
@@ -110,61 +160,67 @@
 
             if(low != 0 || high != 0){
 
-                ResultSet rs = stmt.executeQuery("SELECT ItemName, Stock, Grade, Status, Rating, Class, Price" +
+                ResultSet rs = stmt.executeQuery("SELECT Image, ItemName, Stock, Grade, Status, Rating, Class, Price" +
                         " FROM Items WHERE Price BETWEEN " + low + " AND " + high + ";");
 
                 while (rs.next()) {
                     out.println("<tr>");
-                    out.println("<td style=\"text-align: center;\">" + rs.getString(1) + "</td>" + " " +
-                            "<td style=\"text-align: center;\">" + rs.getInt(2) + "</td>" + " " +
-                            "<td style=\"text-align: center;\">" + rs.getString(3) + "</td>" + " "
-                            + "<td style=\"text-align: center;\">" +  rs.getString(4) + "</td>" + " " +
-                            "<td style=\"text-align: center;\">" + rs.getBigDecimal(5) + "</td>" + " "
-                            + "<td style=\"text-align: center;\">" + rs.getString(6) + "</td>"+
-                            "<td style=\"text-align: center;\">" + "$" + rs.getBigDecimal(7) + "</td>");
+                    out.println("<td style=\"text-align: center;\">" + "<img src = \"images/" + rs.getString(1) +
+                            "\" alt = \"Item Image\" width= \"125\" height = \"100\">" +"</td>" + " " +
+                            "<td style=\"text-align: center;\">" + rs.getString(2) + "</td>" + " " +
+                            "<td style=\"text-align: center;\">" + rs.getInt(3) + "</td>" + " " +
+                            "<td style=\"text-align: center;\">" + rs.getString(4) + "</td>" + " "
+                            + "<td style=\"text-align: center;\">" +  rs.getString(5) + "</td>" + " " +
+                            "<td style=\"text-align: center;\">" + rs.getBigDecimal(6) + "</td>" + " "
+                            + "<td style=\"text-align: center;\">" + rs.getString(7) + "</td>"+
+                            "<td style=\"text-align: center;\">" + "$" + rs.getBigDecimal(8) + "</td>");
                     out.println("</tr>");
                 }
                 out.println("</table>");
             }
             else if(size != ""){
-                ResultSet rs = stmt.executeQuery("SELECT ItemName, Stock, Grade, Status, Rating, Class, Price \n" +
+                ResultSet rs = stmt.executeQuery("SELECT Image, ItemName, Stock, Grade, Status, Rating, Class, Price \n" +
                         "FROM Items\n" +
                         "WHERE ItemName IN (SELECT ItemName FROM Apparel WHERE Size = \"" + size + "\");");
 
                 while (rs.next()) {
                     out.println("<tr>");
-                    out.println("<td style=\"text-align: center;\">" + rs.getString(1) + "</td>" + " " +
-                            "<td style=\"text-align: center;\">" + rs.getInt(2) + "</td>" + " " +
-                            "<td style=\"text-align: center;\">" + rs.getString(3) + "</td>" + " "
-                            + "<td style=\"text-align: center;\">" +  rs.getString(4) + "</td>" + " " +
-                            "<td style=\"text-align: center;\">" + rs.getBigDecimal(5) + "</td>" + " "
-                            + "<td style=\"text-align: center;\">" + rs.getString(6) + "</td>"+
-                            "<td style=\"text-align: center;\">" + "$" + rs.getBigDecimal(7) + "</td>");
+                    out.println("<td style=\"text-align: center;\">" + "<img src = \"images/" + rs.getString(1) +
+                            "\" alt = \"Item Image\" width= \"125\" height = \"100\">" +"</td>" + " " +
+                            "<td style=\"text-align: center;\">" + rs.getString(2) + "</td>" + " " +
+                            "<td style=\"text-align: center;\">" + rs.getInt(3) + "</td>" + " " +
+                            "<td style=\"text-align: center;\">" + rs.getString(4) + "</td>" + " "
+                            + "<td style=\"text-align: center;\">" +  rs.getString(5) + "</td>" + " " +
+                            "<td style=\"text-align: center;\">" + rs.getBigDecimal(6) + "</td>" + " "
+                            + "<td style=\"text-align: center;\">" + rs.getString(7) + "</td>"+
+                            "<td style=\"text-align: center;\">" + "$" + rs.getBigDecimal(8) + "</td>");
                     out.println("</tr>");
                 }
                 out.println("</table>");
             }
             else if(seller != ""){
-                ResultSet rs = stmt.executeQuery("SELECT Items.ItemName, Items.Stock, Items.Grade, Items.Status, Items.Rating, Items.Class, Items.Price \n" +
+                ResultSet rs = stmt.executeQuery("SELECT Items.Image, Items.ItemName, Items.Stock, Items.Grade, Items.Status, Items.Rating, Items.Class, Items.Price \n" +
                         "FROM Items JOIN EditItem USING (itemID) JOIN sellers USING (email)\n" +
                         "WHERE sellers.type = \"" + seller + "\";");
 
                 while (rs.next()) {
                     out.println("<tr>");
-                    out.println("<td style=\"text-align: center;\">" + rs.getString(1) + "</td>" + " " +
-                            "<td style=\"text-align: center;\">" + rs.getInt(2) + "</td>" + " " +
-                            "<td style=\"text-align: center;\">" + rs.getString(3) + "</td>" + " "
-                            + "<td style=\"text-align: center;\">" +  rs.getString(4) + "</td>" + " " +
-                            "<td style=\"text-align: center;\">" + rs.getBigDecimal(5) + "</td>" + " "
-                            + "<td style=\"text-align: center;\">" + rs.getString(6) + "</td>"+
-                            "<td style=\"text-align: center;\">" + "$" + rs.getBigDecimal(7) + "</td>");
+                    out.println("<td style=\"text-align: center;\">" + "<img src = \"images/" + rs.getString(1) +
+                            "\" alt = \"Item Image\" width= \"125\" height = \"100\">" +"</td>" + " " +
+                            "<td style=\"text-align: center;\">" + rs.getString(2) + "</td>" + " " +
+                            "<td style=\"text-align: center;\">" + rs.getInt(3) + "</td>" + " " +
+                            "<td style=\"text-align: center;\">" + rs.getString(4) + "</td>" + " "
+                            + "<td style=\"text-align: center;\">" +  rs.getString(5) + "</td>" + " " +
+                            "<td style=\"text-align: center;\">" + rs.getBigDecimal(6) + "</td>" + " "
+                            + "<td style=\"text-align: center;\">" + rs.getString(7) + "</td>"+
+                            "<td style=\"text-align: center;\">" + "$" + rs.getBigDecimal(8) + "</td>");
                     out.println("</tr>");
                 }
                 out.println("</table>");
             }
 
             else if(searchQuery != null) {
-                ResultSet rs = stmt.executeQuery("SELECT ItemName, Stock, Grade, Status, Rating, Class, " +
+                ResultSet rs = stmt.executeQuery("SELECT Image, ItemName, Stock, Grade, Status, Rating, Class, " +
                         "Price FROM Items WHERE ItemName LIKE " + "\"" + searchQuery + "\""
                         + " OR " + "LOWER(ItemName) LIKE " + "\"" + "LOWER(" + searchQuery + ")" + "\"");
 
@@ -175,26 +231,33 @@
                 else {
                     while (rs.next()) {
                         out.println("<tr>");
-                        out.println("<td>" + rs.getString(1) + "</td>" + " " + "<td>" + rs.getInt(2) + "</td>" + " " +
-                                "<td>" + rs.getString(3) + "</td>" + " " + "<td>" +  rs.getString(4) + "</td>" + " " +
-                                "<td>" + rs.getBigDecimal(5) + "</td>" + " " + "<td>" + rs.getString(6) + "</td>"+ "<td>"
-                                + "$" + rs.getBigDecimal(7) + "</td>");
+                        out.println("<td style=\"text-align: center;\">" + "<img src = \"images/" + rs.getString(1) +
+                                "\" alt = \"Item Image\" width= \"125\" height = \"100\">" +"</td>" + " " +
+                                "<td style=\"text-align: center;\">" + rs.getString(2) + "</td>" + " " +
+                                "<td style=\"text-align: center;\">" + rs.getInt(3) + "</td>" + " " +
+                                "<td style=\"text-align: center;\">" + rs.getString(4) + "</td>" + " "
+                                + "<td style=\"text-align: center;\">" +  rs.getString(5) + "</td>" + " " +
+                                "<td style=\"text-align: center;\">" + rs.getBigDecimal(6) + "</td>" + " "
+                                + "<td style=\"text-align: center;\">" + rs.getString(7) + "</td>"+
+                                "<td style=\"text-align: center;\">" + "$" + rs.getBigDecimal(8) + "</td>");
                         out.println("</tr>");
                     }
                     out.println("</table>");
                 }
             }
             else {
-                ResultSet rs = stmt.executeQuery("SELECT ItemName, Stock, Grade, Status, Rating, Class, Price FROM Items");
+                ResultSet rs = stmt.executeQuery("SELECT Image, ItemName, Stock, Grade, Status, Rating, Class, Price FROM Items");
                 while (rs.next()) {
                     out.println("<tr>");
-                    out.println("<td style=\"text-align: center;\">" + rs.getString(1) + "</td>" + " " +
-                            "<td style=\"text-align: center;\">" + rs.getInt(2) + "</td>" + " " +
-                            "<td style=\"text-align: center;\">" + rs.getString(3) + "</td>" + " "
-                            + "<td style=\"text-align: center;\">" +  rs.getString(4) + "</td>" + " " +
-                            "<td style=\"text-align: center;\">" + rs.getBigDecimal(5) + "</td>" + " "
-                            + "<td style=\"text-align: center;\">" + rs.getString(6) + "</td>"+
-                            "<td style=\"text-align: center;\">" + "$" + rs.getBigDecimal(7) + "</td>");
+                    out.println("<td style=\"text-align: center;\">" + "<img src = \"images/" + rs.getString(1) +
+                            "\" alt = \"Item Image\" width= \"125\" height = \"100\">" +"</td>" + " " +
+                            "<td style=\"text-align: center;\">" + rs.getString(2) + "</td>" + " " +
+                            "<td style=\"text-align: center;\">" + rs.getInt(3) + "</td>" + " " +
+                            "<td style=\"text-align: center;\">" + rs.getString(4) + "</td>" + " "
+                            + "<td style=\"text-align: center;\">" +  rs.getString(5) + "</td>" + " " +
+                            "<td style=\"text-align: center;\">" + rs.getBigDecimal(6) + "</td>" + " "
+                            + "<td style=\"text-align: center;\">" + rs.getString(7) + "</td>"+
+                            "<td style=\"text-align: center;\">" + "$" + rs.getBigDecimal(8) + "</td>");
                     out.println("</tr>");
                 }
                 out.println("</table>");
@@ -248,6 +311,5 @@
         <input type=submit value="Submit">
         <a href="itemMainScreen.jsp">Clear filter selection</a>
     </form>
-
   </body>
 </html>

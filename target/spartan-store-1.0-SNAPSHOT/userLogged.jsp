@@ -7,7 +7,7 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.cs157a.spartanstore.UserBean, jakarta.servlet.http.*" %>
+<%@ page import="com.cs157a.spartanstore.UserBean" %>
 
 <html>
 <head>

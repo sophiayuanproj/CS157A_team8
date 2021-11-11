@@ -1,34 +1,66 @@
+<%--reference: https://www.w3schools.com/howto/howto_js_topnav.asp--%>
+<%--reference: https://www.w3schools.com/howto/howto_css_image_center.asp--%>
+
 <%@ page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
+    <style>
+        body{
+            font-family: Arial;
+        }
+        .center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .upperLabel {
+            overflow: hidden;
+            background-color: #474A47;
+        }
+
+        .upperLabel a {
+            float: right;
+            font-size: 15px;
+            color: #ffffff;
+            padding: 14px 20px;
+        }
+
+    </style>
 <meta charset="UTF-8">
 <title>Spartan Supplies- Cart</title>
 </head>
 <body>
+<div class="upperLabel">
+    <a href="login.jsp">Login</a>
+    <a href="Apparel.jsp">Apparel</a>
+    <a href="Textbooks.jsp">Textbook</a>
+    <a href="Utilities.jsp">Utilities</a>
+    <a href="Technologies.jsp">Technologies</a>
+    <a href="homeScreen.jsp">Home</a>
+
+</div>
     <h1>My Cart</h1>
     
-    <span style="float:right"></span><a href="../../../team8.jsp">Back</a></span>
-    <br />
-
-    <form action="orders.jsp">
-        <input type="submit" value="Orders" />
-    </form>
-
-    <table border="1">
+   <span style="float:right"></span><a href="itemMainScreen.jsp">Back</a></span>
+   <br>
+          
+        <table border="1">
       <tr>
         <td>Item Name</td>
-        <td>Amount</td>
+        <td>Quantity</td>
         <td>Price</td>
-      </tr>
 
+        
+   </tr>
     <% 
      String db = "cs157a_team8_database";
-     String user; // assumes database name is the same as username
-     user = "root";
-     String password = "root";
+        String user; // assumes database name is the same as username
+          user = "root";
+        String password = "root";
         try {
            
             java.sql.Connection con; 
@@ -38,35 +70,12 @@
             
             //out.println("Initial entries in table \"item_description\": <br/>");
             Statement stmt = con.createStatement();
-            
-           
-            ResultSet rs = stmt.executeQuery("SELECT cart.ItemName, Quantity, cart.Price FROM cart, items  WHERE cart.ItemName = items.ItemName");
+
+           out.println("Mock cart, edit soon");
+            ResultSet rs = stmt.executeQuery("SELECT ItemName, Quantity, Price FROM Cart");
             while (rs.next()) {
-                out.println(rs.getString(1) + " " + rs.getInt(2) + " " + rs.getInt(3) + "<br/><br/>");
+                out.println(rs.getString(1) + " " + rs.getInt(2) + " " + rs.getBigDecimal(3) + "<br/><br/>");
             }
-            
-            
-            
-            //Can't figure this part out for now
-/*             String option = request.getParameter("search");
-            
-            out.println(request.getParameter("search"));
-            
-            if(option.equals("Textbooks")){
-            	ResultSet textbook = stmt.executeQuery("SELECT * FROM item_description WHERE itemType = \"Textbook\"");
-	            while (textbook.next()) {
-	            	out.println(textbook.getString(1) + " " + textbook.getInt(2) + " " + textbook.getString(3) + " " + textbook.getInt(4) + " " + textbook.getString(5)+ " " + textbook.getString(6) + "<br/><br/>");
-	            } 
-	            textbook.close();
-	        } */
-            
-            
-            
-            //making test for cart
-            //String add_test = "INSERT INTO item_description VALUES ('test3', 1, 'test3', 1, 'test3', 'test3')";
-            
-            //int test = stmt.executeUpdate(add_test);
-            
            
             stmt.close();
             con.close();
