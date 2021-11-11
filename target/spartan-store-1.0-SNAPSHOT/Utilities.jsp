@@ -1,15 +1,43 @@
+<%--reference: https://www.w3schools.com/howto/howto_js_topnav.asp--%>
+
 <%@ page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
+    <style>
+        body{
+            font-family: Arial;
+        }
+        .upperLabel {
+            overflow: hidden;
+            background-color: #474A47;
+        }
+
+        .upperLabel a {
+            float: right;
+            font-size: 15px;
+            color: #ffffff;
+            padding: 14px 20px;
+        }
+
+    </style>
 <meta charset="UTF-8">
 <title>Spartan Supplies- Utilities</title>
 </head>
 <body>
+<div class="upperLabel">
+    <a href="#home">signup/login</a>
+
+    <a href="Apparel.jsp">Apparel</a>
+    <a href="Textbooks.jsp">Textbook</a>
+    <a href="Utilities.jsp">Utilities</a>
+    <a href="Technologies.jsp">Technologies</a>
+    <a href="homeScreen.jsp">Home</a>
+
+</div>
     <h1>Utilities</h1>
-      <span style="float:right"></span><a href="itemMainScreen.jsp">Back</a></span>
          
     <table border="1">
       <tr>
@@ -21,7 +49,7 @@
         <td>Item Author</td>
         
    </tr>
-        </br>
+        </table>
     
            <% 
      String db = "cs157a_team8_database";
