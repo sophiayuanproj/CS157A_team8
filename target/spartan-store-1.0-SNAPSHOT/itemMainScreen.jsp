@@ -1,4 +1,6 @@
 <%@ page import="java.sql.*"%>
+<%@ page import="com.cs157a.spartanstore.UserBean" %>
+
 <html>
   <head>
       <style>
@@ -22,41 +24,54 @@
               color: #ffffff;
               padding: 14px 20px;
           }
-
       </style>
-    <title>Spartan Supplies- Item Description</title>
-    </head>
-  <body>
-  <div class="upperLabel">
-      <a href="#home">signup/login</a>
+      <title>Spartan Supplies- Item Description</title>
+  </head>
 
-      <a href="Apparel.jsp">Apparel</a>
-      <a href="Textbooks.jsp">Textbook</a>
-      <a href="Utilities.jsp">Utilities</a>
-      <a href="Technologies.jsp">Technologies</a>
-      <a href="homeScreen.jsp">Home</a>
-  </div>
+  <body>
+      <div class="upperLabel">
+          <a href="login.jsp">Login</a>
+          <a href="Apparel.jsp">Apparel</a>
+          <a href="Textbooks.jsp">Textbook</a>
+          <a href="Utilities.jsp">Utilities</a>
+          <a href="Technologies.jsp">Technologies</a>
+          <a href="homeScreen.jsp">Home</a>
+      </div>
 <%--    <h1>Welcome to Spartan Supplies!</h1>--%>
-  <div>
-      <img src="images/s_s.png" align="left" style = "display: block; width: 15%; height: 15%;" border="0">
-  </div>
-  <br>
-  <a href="Cart.jsp"><img style="float:right" src="images/cart.png" width="50" height="50"></a>
-  <br>
-  <br>
-  <br>
-<%--<span style="float:right"></span><a href="Cart.jsp">Cart</a></span>--%>
+      <div>
+          <img src="images/s_s.png" align="left" style = "display: block; width: 15%; height: 15%;" border="0">
+      </div>
+      <br>
+      <a href="Cart.jsp"><img style="float:right" src="images/cart.png" width="50" height="50"></a>
+      <br>
+      <br>
+      <br>
+      <%--<span style="float:right"></span><a href="Cart.jsp">Cart</a></span>--%>
 
       <form align = "right" id = "searchForm" method = "post" action = "itemMainScreen.jsp" class = "form-horizontal">
         <b>Search on Spartan Supplies:</b>  <input type="text" placeholder="Search item name..." name = "searchQuery" id = "searchQuery" name = "Search">
          <input type=submit value="Submit">
       </form>
 
+      <div>
+          <%
+              UserBean currentUser = null;
+              currentUser = (UserBean) session.getAttribute("currentSessionUser");
+              if (currentUser == null) {
+                  out.println("Welcome! Please login.");
+              }
+              else {
+                  out.println("Welcome " + currentUser.getEmail());
+              }
+          %>
+      </div>
+
     <span style="float:right"><a href="searchClass.jsp">Search for your class here!</a></span>
-   <br>
-    <br>
+      <br>
+      <br>
     <u><b>Filter</b></u>
 <%--Scroll down for the rest of the filter--%>
+
     <% 
      String db = "cs157a_team8_database";
         String user; // assumes database name is the same as username
@@ -296,6 +311,5 @@
         <input type=submit value="Submit">
         <a href="itemMainScreen.jsp">Clear filter selection</a>
     </form>
-
   </body>
 </html>

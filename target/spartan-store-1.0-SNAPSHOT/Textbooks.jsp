@@ -28,8 +28,7 @@
 </head>
 <body>
 <div class="upperLabel">
-    <a href="#home">signup/login</a>
-
+    <a href="login.jsp">Login</a>
     <a href="Apparel.jsp">Apparel</a>
     <a href="Textbooks.jsp">Textbook</a>
     <a href="Utilities.jsp">Utilities</a>
