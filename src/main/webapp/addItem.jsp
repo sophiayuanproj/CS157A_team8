@@ -1,19 +1,60 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: SophiaYuan
-  Date: 11/8/21
-  Time: 9:08 PM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.sql.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
+  <style>
+    body{
+      font-family: Arial;
+    }
+    .center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .upperLabel {
+      overflow: hidden;
+      background-color: #474A47;
+    }
+
+    .upperLabel a {
+      float: right;
+      font-size: 15px;
+      color: #ffffff;
+      padding: 14px 20px;
+    }
+
+  </style>
     <title>Spartan Supplies- Add your items here</title>
 </head>
 <body>
-<h1>Add items to your store</h1>
 
-<form method=get>
+<div class="upperLabel">
+  <a href="login.jsp">Login</a>
+  <a href="Apparel.jsp">Apparel</a>
+  <a href="Textbooks.jsp">Textbook</a>
+  <a href="Utilities.jsp">Utilities</a>
+  <a href="Technologies.jsp">Technologies</a>
+  <a href="homeScreen.jsp">Home</a>
+</div>
+<%--    <h1>Welcome to Spartan Supplies!</h1>--%>
+<div>
+  <img src="images/s_s.png" align="left" style = "display: block; width: 15%; height: 15%;" border="0">
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<h1 style="text-align:center">Add items to your store</h1>
+<br>
+<form method="get" style="text-align:center">
   <b>Item Name:</b>  <input type=text name="name" id = "name">
   <br>
   <br>
@@ -40,5 +81,30 @@
   <br>
   <input type=submit value="Submit">
 </form>
+
+  <%
+
+    String db = "cs157a_team8_database";
+    String user; // assumes database name is the same as username
+    user = "root";
+    String password = "root";
+    try {
+
+      java.sql.Connection con;
+      Class.forName("com.mysql.jdbc.Driver");
+      con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs157a_team8_database?autoReconnect=true&useSSL=false", user, password);
+      Statement stmt = con.createStatement();
+
+
+
+
+      stmt.close();
+      con.close();
+    } catch(SQLException e) {
+      out.println("SQLException caught: " + e.getMessage());
+    }
+
+  %>
+
 </body>
 </html>

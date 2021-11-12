@@ -40,6 +40,11 @@
 <div>
 <img src="images/s_s.png" align="left" style = "display: block; width: 15%; height: 15%;" border="0">
 </div>
+</div>
+<br>
+<a href="Cart.jsp"><img style="float:right" src="images/cart.png" width="50" height="50"></a>
+<br>
+<br>
 <br>
 <form align = "right" id = "searchForm" method = "post" action = "itemMainScreen.jsp" class = "form-horizontal">
     <b>Search on Spartan Supplies:</b>  <input type="text" placeholder="Search item name..." name = "searchQuery" id = "searchQuery" name = "Search">
