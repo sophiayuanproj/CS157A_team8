@@ -71,7 +71,7 @@
             Statement stmt = con.createStatement();
             
            out.println("Mock cart, edit soon");
-            ResultSet rs = stmt.executeQuery("SELECT ItemName, Quantity, Price FROM Cart");
+            ResultSet rs = stmt.executeQuery("SELECT ItemName, Quantity, Price FROM ItemsInCart");
             while (rs.next()) {
                 out.println(rs.getString(1) + " " + rs.getInt(2) + " " + rs.getBigDecimal(3) + "<br/><br/>");
             }
