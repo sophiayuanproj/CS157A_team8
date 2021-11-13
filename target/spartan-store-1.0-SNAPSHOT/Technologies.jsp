@@ -32,7 +32,7 @@
     <a href="Textbooks.jsp">Textbook</a>
     <a href="Utilities.jsp">Utilities</a>
     <a href="Technologies.jsp">Technologies</a>
-    <a href="homeScreen.jsp">Home</a>
+    <a href="index.jsp">Home</a>
 
 </div>
     <h1>Technologies</h1>
