@@ -43,15 +43,6 @@
                 <a href="Technologies.jsp">Technologies</a>
                 <a href="index.jsp">Home</a>
             </div>
-            <%--    <h1>Welcome to Spartan Supplies!</h1>--%>
-            <div>
-                <img src="images/s_s.png" align="left" style = "display: block; width: 15%; height: 15%;" border="0">
-            </div>
-            <br>
-            <a href="Cart.jsp"><img style="float:right" src="images/cart.png" width="50" height="50"></a>
-            <br>
-            <br>
-            <br>
         </nav>
 
         <main>
