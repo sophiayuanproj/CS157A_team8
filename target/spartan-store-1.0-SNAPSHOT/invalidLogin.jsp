@@ -11,8 +11,14 @@
   <title>Invalid Login</title>
 </head>
 <body>
+<<<<<<< HEAD
   <p>Sorry, login failed!</p>
   <p><a href="login.jsp">Try again</a></p>
   <p>Don't have an account? <a href="signup.jsp">Sign Up</a></p>
+=======
+<div>
+  Sorry, you are not a registered user! Please sign up first
+</div>
+>>>>>>> 63c207e (Finished signup and login features)
 </body>
 </html>

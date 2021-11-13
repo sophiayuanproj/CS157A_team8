@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%--reference: https://www.w3schools.com/howto/howto_js_topnav.asp--%>
 <%--reference: https://www.w3schools.com/howto/howto_css_image_center.asp--%>
 <!DOCTYPE html>
@@ -66,3 +67,18 @@
 
 </body>
 </html>
+=======
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JSP - Hello World</title>
+</head>
+<body>
+<h1><%= "Hello World!" %>
+</h1>
+<br/>
+<a href="hello-servlet">Hello Servlet</a>
+</body>
+</html>
+>>>>>>> 63c207e (Finished signup and login features)

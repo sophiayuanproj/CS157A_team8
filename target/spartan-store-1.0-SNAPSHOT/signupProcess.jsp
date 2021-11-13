@@ -47,7 +47,10 @@
 
         int i = statement.executeUpdate("INSERT INTO users(name, email, password, salt) VALUES('" + name + "','" + email + "','" + newPassword + "','" + salt + "')");
         System.out.println("Data is successfully inserted!");
+<<<<<<< HEAD
         response.sendRedirect("/login.jsp");
+=======
+>>>>>>> 63c207e (Finished signup and login features)
     }
     catch(Exception e) {
         System.out.print(e);

@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
+<<<<<<< HEAD
     <head>
         <style>
             body{
@@ -73,4 +74,26 @@
             Already have an account? <a href="login.jsp">Login</a>
         </main>
     </body>
+=======
+<head>
+    <title>Sign Up</title>
+</head>
+<body>
+<h1>Sign Up</h1>
+<form action="signupProcess.jsp" method="POST">
+    <div class="container">
+        <label for="name"><b>Name</b></label>
+        <input id="name" type="text" placeholder="Enter Name" name="name" required>
+
+        <label for="email"><b>Email</b></label>
+        <input id="email" type="email" placeholder="Enter Email" name="email" required>
+
+        <label for="password"><b>Password</b></label>
+        <input id="password" type="password" placeholder="Enter Password" name="password" required>
+
+        <input type="submit" value="Sign Up">
+    </div>
+</form>
+</body>
+>>>>>>> 63c207e (Finished signup and login features)
 </html>

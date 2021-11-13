@@ -7,7 +7,11 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<<<<<<< HEAD
 <%@ page import="com.cs157a.spartanstore.UserBean" %>
+=======
+<%@ page import="com.cs157a.spartanstore.UserBean, jakarta.servlet.http.*" %>
+>>>>>>> 63c207e (Finished signup and login features)
 
 <html>
 <head>

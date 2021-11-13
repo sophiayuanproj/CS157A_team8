@@ -6,5 +6,8 @@
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
+<<<<<<< HEAD
 # Zeppelin ignored files
 /ZeppelinRemoteNotebooks/
+=======
+>>>>>>> 63c207e (Finished signup and login features)
