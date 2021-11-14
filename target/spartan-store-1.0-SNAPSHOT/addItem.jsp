@@ -30,26 +30,41 @@
     <title>Spartan Supplies- Add your items here</title>
 </head>
 <body>
+  <nav>
+    <div class="upperLabel">
+      <%
+        UserBean currentUser = null;
+        currentUser = (UserBean) session.getAttribute("currentSessionUser");
+        if (currentUser == null) {
+      %>
+      <a href="login.jsp">Login</a>
+      <%
+      }
+      else {
+      %>
+      <a href="signout.jsp">Sign Out</a>
+      <%
+        }
+      %>
 
-<div class="upperLabel">
-  <a href="login.jsp">Login</a>
-  <a href="Apparel.jsp">Apparel</a>
-  <a href="Textbooks.jsp">Textbook</a>
-  <a href="Utilities.jsp">Utilities</a>
-  <a href="Technologies.jsp">Technologies</a>
-  <a href="index.jsp">Home</a>
-</div>
+      <a href="Apparel.jsp">Apparel</a>
+      <a href="Textbooks.jsp">Textbook</a>
+      <a href="Utilities.jsp">Utilities</a>
+      <a href="Technologies.jsp">Technologies</a>
+      <a href="index.jsp">Home</a>
+    </div>
+  </nav>
 
 <div>
   <%
-    UserBean currentUser = null;
+    UserBean currentUser2 = null;
     //currentUser.setName("sophia");
-    currentUser = (UserBean) session.getAttribute("currentSessionUser");
-    if (currentUser == null) {
+    currentUser2 = (UserBean) session.getAttribute("currentSessionUser");
+    if (currentUser2 == null) {
       out.println("Welcome! Please login.");
     }
     else {
-      out.println("Welcome " + currentUser.getEmail());
+      out.println("Welcome " + currentUser2.getEmail());
     }
   %>
 </div>

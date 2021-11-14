@@ -58,7 +58,7 @@
 
     <main>
         <% UserBean currentUser2 = (UserBean) session.getAttribute("currentSessionUser");%>
-        <h1>Welcome <%= currentUser2.getName() %>!</h1>
+        <h1>Welcome <%= currentUser2.getName() %></h1>
     </main>
 </body>
 </html>
