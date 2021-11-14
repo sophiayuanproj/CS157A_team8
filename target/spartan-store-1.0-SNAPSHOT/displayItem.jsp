@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page import="java.sql.*"%>
+<%@ page import="com.cs157a.spartanstore.UserBean" %>
 <html>
 <head>
     <title>Item Description</title>
@@ -34,14 +35,32 @@
     </style>
 </head>
 <body>
-<div class="upperLabel">
-    <a href="login.jsp">Login</a>
-    <a href="Apparel.jsp">Apparel</a>
-    <a href="Textbooks.jsp">Textbook</a>
-    <a href="Utilities.jsp">Utilities</a>
-    <a href="Technologies.jsp">Technologies</a>
-    <a href="index.jsp">Home</a>
-</div>
+    <nav>
+        <div class="upperLabel">
+            <%
+                UserBean currentUser = null;
+                currentUser = (UserBean) session.getAttribute("currentSessionUser");
+                if (currentUser == null) {
+            %>
+            <a href="login.jsp">Login</a>
+            <%
+            }
+            else {
+            %>
+            <a href="signout.jsp">Sign Out</a>
+            <%
+                }
+            %>
+
+            <a href="Apparel.jsp">Apparel</a>
+            <a href="Textbooks.jsp">Textbook</a>
+            <a href="Utilities.jsp">Utilities</a>
+            <a href="Technologies.jsp">Technologies</a>
+            <a href="index.jsp">Home</a>
+        </div>
+    </nav>
+
+
 <div>
     <img src="images/s_s.png" align="left" style = "display: block; width: 15%; height: 15%;" border="0">
 </div>

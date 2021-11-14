@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.cs157a.spartanstore.UserBean" %><%--
   Created by IntelliJ IDEA.
   User: Edward
   Date: 11/5/2021
@@ -36,7 +36,21 @@
     <body>
         <nav>
             <div class="upperLabel">
-                <a href="login.jsp">Login</a>
+                <%
+                    UserBean currentUser = null;
+                    currentUser = (UserBean) session.getAttribute("currentSessionUser");
+                    if (currentUser == null) {
+                %>
+                        <a href="login.jsp">Login</a>
+                <%
+                    }
+                    else {
+                %>
+                        <a href="signout.jsp">Sign Out</a>
+                <%
+                    }
+                %>
+
                 <a href="Apparel.jsp">Apparel</a>
                 <a href="Textbooks.jsp">Textbook</a>
                 <a href="Utilities.jsp">Utilities</a>

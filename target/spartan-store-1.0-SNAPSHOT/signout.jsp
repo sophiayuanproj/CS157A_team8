@@ -1,19 +1,22 @@
-<%--
+<%@ page import="com.cs157a.spartanstore.UserBean" %><%--
   Created by IntelliJ IDEA.
   User: Edward
-  Date: 11/5/2021
-  Time: 10:45 PM
+  Date: 11/13/2021
+  Time: 9:31 PM
   To change this template use File | Settings | File Templates.
 --%>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.cs157a.spartanstore.UserBean" %>
-
 <html>
 <head>
     <style>
         body{
             font-family: Arial;
+        }
+
+        center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .upperLabel {
@@ -28,9 +31,13 @@
             padding: 14px 20px;
         }
     </style>
-    <title>User Logged Successfully</title>
+    <title>Spartan Supplies - Sign Out</title>
 </head>
 <body>
+    <%
+        session.setAttribute("currentSessionUser", null);
+    %>
+
     <nav>
         <div class="upperLabel">
             <%
@@ -57,8 +64,7 @@
     </nav>
 
     <main>
-        <% UserBean currentUser2 = (UserBean) session.getAttribute("currentSessionUser");%>
-        <h1>Welcome <%= currentUser2.getName() %>!</h1>
+        <h1>You have successfully signed out.</h1>
     </main>
 </body>
 </html>
