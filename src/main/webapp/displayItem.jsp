@@ -1,11 +1,6 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: SophiaYuan
-  Date: 11/11/21
-  Time: 8:53 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page import="java.sql.*"%>
+<%@ page import="com.cs157a.spartanstore.UserBean" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
     <title>Item Description</title>
@@ -40,8 +35,24 @@
     <a href="Textbooks.jsp">Textbook</a>
     <a href="Utilities.jsp">Utilities</a>
     <a href="Technologies.jsp">Technologies</a>
+    <a href="itemMainScreen.jsp">All Items</a>
     <a href="index.jsp">Home</a>
 </div>
+
+<div>
+    <%
+        UserBean currentUser = null;
+        //currentUser.setName("sophia");
+        currentUser = (UserBean) session.getAttribute("currentSessionUser");
+        if (currentUser == null) {
+            out.println("Welcome! Please login.");
+        }
+        else {
+            out.println("Welcome " + currentUser.getEmail());
+        }
+    %>
+</div>
+
 <div>
     <img src="images/s_s.png" align="left" style = "display: block; width: 15%; height: 15%;" border="0">
 </div>
@@ -50,13 +61,19 @@
 <br>
 <br>
 <br>
+<%--<center>--%>
+<%--&lt;%&ndash;    <form method="get" style="text-align:center">&ndash;%&gt;--%>
+<%--&lt;%&ndash;        <b>Quantity:</b>  <input type=text name="qty" id = "qty">&ndash;%&gt;--%>
+<%--&lt;%&ndash;        <br>&ndash;%&gt;--%>
+<%--&lt;%&ndash;        <br>&ndash;%&gt;--%>
+<%--&lt;%&ndash;        <input type=submit value="Add">&ndash;%&gt;--%>
+<%--&lt;%&ndash;    </form>&ndash;%&gt;--%>
+<%--</center>--%>
 
 <%
-//    //For testing
-//    String itemID = request.getParameter("itemID");
-//    String itemName = request.getParameter("itemName");
-//    String itemType = request.getParameter("itemType");
-//    out.println("<p>" + itemID + itemName + itemType +"</p>");
+    String itemID = request.getParameter("itemID");
+    String itemName = request.getParameter("itemName");
+    String itemType = request.getParameter("itemType");
 
     String db = "cs157a_team8_database";
     String user; // assumes database name is the same as username
@@ -69,9 +86,7 @@
         con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs157a_team8_database?autoReconnect=true&useSSL=false",user, password);
         Statement stmt = con.createStatement();
 
-        String itemID = request.getParameter("itemID");
-        String itemName = request.getParameter("itemName");
-        String itemType = request.getParameter("itemType");
+        //out.println("this is: " + itemType);
 
         ResultSet rs = stmt.executeQuery("SELECT Image, Items.ItemName, Stock, Status, Rating, Price, ItemDescription\n" +
                 "FROM Items," + itemType + "\n" +
@@ -101,16 +116,22 @@
             out.println("</center>");
         }
 
+        // making qty 1
+        out.println("<center><a href=\"confirmAddToCart.jsp?" + "itemID=" + itemID +
+                "&" + "itemName=" + itemName +
+                "&" + "itemType=" + itemType +
+                "&" + "qty=" + 1 +
+                "\" />" + "Add to cart" + "</a></center>");
+
         stmt.close();
         con.close();
 
     } catch(SQLException e) {
-    out.println("SQLException caught: " + e.getMessage());
+        //out.println("SQLException caught: " + e.getMessage());
+        out.println("Please enter this page from item selection");
     }
 
-
-
 %>
-
+<br>
 </body>
 </html>

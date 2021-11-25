@@ -35,6 +35,7 @@
           <a href="Textbooks.jsp">Textbook</a>
           <a href="Utilities.jsp">Utilities</a>
           <a href="Technologies.jsp">Technologies</a>
+          <a href="itemMainScreen.jsp">All Items</a>
           <a href="index.jsp">Home</a>
       </div>
 <%--    <h1>Welcome to Spartan Supplies!</h1>--%>
@@ -158,7 +159,85 @@
                 seller = "company";
             }
 
-            if(low != 0 || high != 0){
+            if(size != "" && low != 0 || size != "" && high != 0){
+
+                ResultSet rs = stmt.executeQuery("SELECT Image, ItemName, Stock, Grade, Status, Rating, Class, Price, ItemID, ItemType" +
+                        " FROM Items WHERE Price BETWEEN " + low + " AND " + high + " AND " + "ItemName IN (SELECT ItemName FROM " +
+                        "Apparel WHERE Size = \"" + size + "\")" + " AND " + "ItemID IN (SELECT ItemID FROM Apparel WHERE Size =" +
+                        "\"" + size + "\")" + ";");
+
+                while (rs.next()) {
+                    //out.println("STATEMENT EXECUTED");
+                    out.println("<tr>");
+                    out.println("<td style=\"text-align: center;\">" + "<img src = \"images/" + rs.getString(1) +
+                            "\" alt = \"Item Image\" width= \"125\" height = \"100\">" + "</td>" + " " +
+                            "<td style=\"text-align: center;\"><a href=\"displayItem.jsp?" + "itemID=" + rs.getString(9) +
+                            "&" + "itemName=" + rs.getString(2) +
+                            "&" + "itemType=" + rs.getString(10) + "\" />" + rs.getString(2) + "</a></td>" + " " +
+                            "<td style=\"text-align: center;\">" + rs.getInt(3) + "</td>" + " " +
+                            "<td style=\"text-align: center;\">" + rs.getString(4) + "</td>" + " "
+                            + "<td style=\"text-align: center;\">" + rs.getString(5) + "</td>" + " " +
+                            "<td style=\"text-align: center;\">" + rs.getBigDecimal(6) + "</td>" + " "
+                            + "<td style=\"text-align: center;\">" + rs.getString(7) + "</td>" +
+                            "<td style=\"text-align: center;\">" + "$" + rs.getBigDecimal(8) + "</td>");
+                    out.println("</tr>");
+                }
+                out.println("</table>");
+            }
+
+            else if(seller != "" && low != 0 || seller != "" && high != 0){
+
+                ResultSet rs = stmt.executeQuery("SELECT Items.Image, Items.ItemName, Items.Stock, Items.Grade, Items.Status, " +
+                        "Items.Rating, Items.Class, Items.Price, Items.ItemID, Items.ItemType \n" +
+                        "FROM Items JOIN EditItem USING (itemID) JOIN sellers USING (email)\n" +
+                        "WHERE sellers.type = \"" + seller + "\"" + " AND " + "Price BETWEEN " + low + " AND " + high + ";");
+
+                while (rs.next()) {
+                    //out.println("STATEMENT EXECUTED");
+                    out.println("<tr>");
+                    out.println("<td style=\"text-align: center;\">" + "<img src = \"images/" + rs.getString(1) +
+                            "\" alt = \"Item Image\" width= \"125\" height = \"100\">" + "</td>" + " " +
+                            "<td style=\"text-align: center;\"><a href=\"displayItem.jsp?" + "itemID=" + rs.getString(9) +
+                            "&" + "itemName=" + rs.getString(2) +
+                            "&" + "itemType=" + rs.getString(10) + "\" />" + rs.getString(2) + "</a></td>" + " " +
+                            "<td style=\"text-align: center;\">" + rs.getInt(3) + "</td>" + " " +
+                            "<td style=\"text-align: center;\">" + rs.getString(4) + "</td>" + " "
+                            + "<td style=\"text-align: center;\">" + rs.getString(5) + "</td>" + " " +
+                            "<td style=\"text-align: center;\">" + rs.getBigDecimal(6) + "</td>" + " "
+                            + "<td style=\"text-align: center;\">" + rs.getString(7) + "</td>" +
+                            "<td style=\"text-align: center;\">" + "$" + rs.getBigDecimal(8) + "</td>");
+                    out.println("</tr>");
+                }
+                out.println("</table>");
+            }
+
+            else if(seller != "" && size != ""){
+                ResultSet rs = stmt.executeQuery("SELECT Items.Image, Items.ItemName, Items.Stock, Items.Grade, Items.Status, " +
+                        "Items.Rating, Items.Class, Items.Price, Items.ItemID, Items.ItemType \n" +
+                        "FROM Items JOIN EditItem USING (itemID) JOIN sellers USING (email)\n" +
+                        "WHERE sellers.type =" + "\"" + seller + "\"" + " AND " +
+                        "Items.ItemName IN (SELECT ItemName FROM Apparel WHERE Size =" +
+                        "\"" + size + "\")" + " AND " + "Items.ItemID IN (SELECT ItemID FROM Apparel WHERE Size =" + "\"" + size + "\"" + ");");
+
+                while (rs.next()) {
+                    out.println("<tr>");
+                    out.println("<td style=\"text-align: center;\">" + "<img src = \"images/" + rs.getString(1) +
+                            "\" alt = \"Item Image\" width= \"125\" height = \"100\">" + "</td>" + " " +
+                            "<td style=\"text-align: center;\"><a href=\"displayItem.jsp?" + "itemID=" + rs.getString(9) +
+                            "&" + "itemName=" + rs.getString(2) +
+                            "&" + "itemType=" + rs.getString(10) + "\" />" + rs.getString(2) + "</a></td>" + " " +
+                            "<td style=\"text-align: center;\">" + rs.getInt(3) + "</td>" + " " +
+                            "<td style=\"text-align: center;\">" + rs.getString(4) + "</td>" + " "
+                            + "<td style=\"text-align: center;\">" + rs.getString(5) + "</td>" + " " +
+                            "<td style=\"text-align: center;\">" + rs.getBigDecimal(6) + "</td>" + " "
+                            + "<td style=\"text-align: center;\">" + rs.getString(7) + "</td>" +
+                            "<td style=\"text-align: center;\">" + "$" + rs.getBigDecimal(8) + "</td>");
+                    out.println("</tr>");
+                }
+                out.println("</table>");
+            }
+
+            else if(low != 0 || high != 0){
 
                 ResultSet rs = stmt.executeQuery("SELECT Image, ItemName, Stock, Grade, Status, Rating, Class, Price, ItemID, ItemType" +
                         " FROM Items WHERE Price BETWEEN " + low + " AND " + high + ";");
@@ -202,6 +281,7 @@
                 }
                 out.println("</table>");
             }
+
             else if(seller != ""){
                 ResultSet rs = stmt.executeQuery("SELECT Items.Image, Items.ItemName, Items.Stock, Items.Grade, Items.Status, " +
                         "Items.Rating, Items.Class, Items.Price, Items.ItemID, Items.ItemType \n" +

@@ -1,92 +1,159 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: SophiaYuan
-  Date: 11/11/21
-  Time: 8:57 PM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.sql.*"%>
+<%@ page import="com.cs157a.spartanstore.UserBean" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
+    <title>Item Description</title>
     <style>
-        td {border: 1px #DDD solid; padding: 5px; cursor: pointer;}
-
-        .selected {
-            background-color: brown;
-            color: #FFF;
+        body{
+            font-family: Arial;
         }
-        </style>
-    <title>Test your code here</title>
+        .center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .upperLabel {
+            overflow: hidden;
+            background-color: #474A47;
+        }
+
+        .upperLabel a {
+            float: right;
+            font-size: 15px;
+            color: #ffffff;
+            padding: 14px 20px;
+        }
+
+    </style>
 </head>
 <body>
+<div class="upperLabel">
+    <a href="login.jsp">Login</a>
+    <a href="Apparel.jsp">Apparel</a>
+    <a href="Textbooks.jsp">Textbook</a>
+    <a href="Utilities.jsp">Utilities</a>
+    <a href="Technologies.jsp">Technologies</a>
+    <a href="itemMainScreen.jsp">All Items</a>
+    <a href="index.jsp">Home</a>
+</div>
 
 <div>
     <%
-        String db = "cs157a_team8_database";
-        String user; // assumes database name is the same as username
-        user = "root";
-        String password = "root";
-        try {
+        UserBean currentUser = null;
+        //currentUser.setName("sophia");
+        currentUser = (UserBean) session.getAttribute("currentSessionUser");
+        if (currentUser == null) {
+            out.println("Welcome! Please login.");
+        }
+        else {
+            out.println("Welcome " + currentUser.getEmail());
+        }
+    %>
+</div>
 
-            java.sql.Connection con;
-            Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs157a_team8_database?autoReconnect=true&useSSL=false", user, password);
-            //out.println(db + " database successfully opened.<br/><br/>");
+<div>
+    <img src="images/s_s.png" align="left" style = "display: block; width: 15%; height: 15%;" border="0">
+</div>
+<br>
+<a href="Cart.jsp"><img style="float:right" src="images/cart.png" width="50" height="50"></a>
+<br>
+<br>
+<br>
+<center>
+    <form method="get" style="text-align:center">
+        <b>Quantity:</b>  <input type=text name="qty" id = "qty">
+        <br>
+        <br>
+        <input type=submit value="Add">
+    </form>
+</center>
 
-            //out.println("Initial entries in table \"item_description\": <br/>");
-            Statement stmt = con.createStatement();
+<%
 
+    String itemType = "Technologies";
+    int itemID = 0;
+    String itemName = "Macbook";
 
-            out.println("<table id=\"table\" border=\"1\" align=\"right\">\n" +
-                    "        <tr>\n" +
-                    "            <th width=\"175\">Image</th>\n" +
-                    "            <th width=\"175\">Name</th>\n" +
-                    "            <th width=\"175\">Stock</th>\n" +
-                    "            <th width=\"175\">Grade</th>\n" +
-                    "            <th width=\"175\">Status</th>\n" +
-                    "            <th width=\"175\">Rating</th>\n" +
-                    "            <th width=\"175\">Class</th>\n" +
-                    "            <th width=\"175\">Price</th>\n" +
-                    "        </tr>\n");
+    String db = "cs157a_team8_database";
+    String user; // assumes database name is the same as username
+    user = "root";
+    String password = "root";
+    try {
 
-            String filter = request.getParameter("$10-$500");
-            String filter2 = request.getParameter("$500-$1000");
-            String filter3 = request.getParameter("$1000+");
-            String filter4 = request.getParameter("small");
-            String filter5 = request.getParameter("medium");
-            String filter6 = request.getParameter("large");
-            String filter7 = request.getParameter("student");
-            String filter8 = request.getParameter("company");
+        java.sql.Connection con;
+        Class.forName("com.mysql.jdbc.Driver");
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs157a_team8_database?autoReconnect=true&useSSL=false",user, password);
+        Statement stmt = con.createStatement();
 
-            ResultSet rs = stmt.executeQuery("SELECT Image, ItemName, Stock, Grade, Status, Rating, Class, Price, itemID FROM Items");
+        //out.println("this is: " + itemType);
 
-            //"<a href=\"displayItem.jsp?userId=5test&what=6wut\" />" +  + "</a>"
-            while (rs.next()) {
-                out.println("<tr>");
-                out.println("<td style=\"text-align: center;\">" + "<img src = \"images/" + rs.getString(1) +
-                        "\" alt = \"Item Image\" width= \"125\" height = \"100\">" + "</td>" + " " +
-                        "<td style=\"text-align: center;\"><a href=\"displayItem.jsp?" + "itemID=" + rs.getString(9) +
-                        "&" + "itemName=" + rs.getString(2) + "\" />" + rs.getString(2) + "</a></td>" + " " +
-                        "<td style=\"text-align: center;\">" + rs.getInt(3) + "</td>" + " " +
-                        "<td style=\"text-align: center;\">" + rs.getString(4) + "</td>" + " "
-                        + "<td style=\"text-align: center;\">" + rs.getString(5) + "</td>" + " " +
-                        "<td style=\"text-align: center;\">" + rs.getBigDecimal(6) + "</td>" + " "
-                        + "<td style=\"text-align: center;\">" + rs.getString(7) + "</td>" +
-                        "<td style=\"text-align: center;\">" + "$" + rs.getBigDecimal(8) + "</td>");
-                out.println("</tr>");
-                //out.println("VALUES: " + rs.getString(9) + rs.getString(2));
-            }
-            out.println("</table>");
+        ResultSet rs = stmt.executeQuery("SELECT Image, Items.ItemName, Stock, Status, Rating, Price, ItemDescription\n" +
+                "FROM Items," + itemType + "\n" +
+                "WHERE Items.ItemID =" + itemType + ".ItemID AND Items.ItemName = " + itemType + ".ItemName " +
+                "AND Items.ItemID = " + itemID + " AND Items.ItemName = \"" + itemName + "\"");
 
-            String searchQuery = request.getParameter("searchQuery");
-        } catch(SQLException e) {
-            out.println("SQLException caught: " + e.getMessage());
+        while (rs.next()) {
+            out.println("<br>");
+            out.println("<img src = \"images/" + rs.getString(1) + "\" alt = \"Item Image\" width= \"300\" height = \"275\">");
+            out.println("<center>");
+            out.println("<h1>" + rs.getString(2) + "</h1>");
+            out.println("<b>Item price: </b>" + "$" + rs.getBigDecimal(6));
+            out.println("<br>");
+            out.println("<br>");
+            out.println("<b>Item description: </b>" + rs.getString(7));
+            out.println("<br>");
+            out.println("<br>");
+            out.println("<b>Item stock: </b>" + rs.getInt(3));
+            out.println("<br>");
+            out.println("<br>");
+            out.println("<b>Item status: </b>" + rs.getString(4));
+            out.println("<br>");
+            out.println("<br>");
+            out.println("<b>Item rating: </b>" + rs.getBigDecimal(5));
+            out.println("<br>");
+            out.println("<br>");
+            out.println("</center>");
         }
 
-    %>
+        stmt.close();
+        con.close();
 
-</div>
-<%--<a href="displayItem.jsp?userId=5test&what=6wut" />link1</a>--%>
+    } catch(SQLException e) {
+        //out.println("SQLException caught: " + e.getMessage());
+        out.println("Please enter this page from item selection");
+    }
+
+%>
+<%
+
+    try {
+        java.sql.Connection con;
+        String qty = request.getParameter("qty");
+        Class.forName("com.mysql.jdbc.Driver");
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs157a_team8_database?autoReconnect=true&useSSL=false",user, password);
+        Statement stmt = con.createStatement();
+
+        stmt.executeUpdate("INSERT INTO ItemsInCart (ItemID, ItemName, email, Quantity, Price) " +
+                "VALUES (" + "(SELECT Items.ItemID " +
+                "FROM Items," + itemType + " " +
+                        "WHERE Items.ItemID =" + itemType + ".ItemID AND Items.ItemName =" + itemType + ".ItemName" +
+                        " AND Items.ItemID =" + itemID + " AND Items.ItemName =\""+ itemName + "\"" + ")" + ", \"tester\", \"testeremail\"," + qty + "," + 5 +");");
+
+        out.println("this is qty: " + qty);
+
+        out.println( itemName + " has been added to your cart.");
+
+        stmt.close();
+        con.close();
+
+    } catch(SQLException e) {
+        out.println("SQLException caught: " + e.getMessage());
+        //out.println("Please enter this page from item selection");
+    }
+%>
+
+<br>
 </body>
 </html>

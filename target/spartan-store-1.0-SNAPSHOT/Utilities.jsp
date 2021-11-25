@@ -33,22 +33,11 @@
     <a href="Textbooks.jsp">Textbook</a>
     <a href="Utilities.jsp">Utilities</a>
     <a href="Technologies.jsp">Technologies</a>
+    <a href="itemMainScreen.jsp">All Items</a>
     <a href="index.jsp">Home</a>
 
 </div>
     <h1>Utilities</h1>
-         
-    <table border="1">
-      <tr>
-        <td>Item Type</td>
-        <td>Item Number</td>
-        <td>Item Name</td>
-        <td>Stock</td>
-        <td>Item Description</td>
-        <td>Item Author</td>
-        
-   </tr>
-        </table>
     
            <% 
      String db = "cs157a_team8_database";
@@ -64,12 +53,23 @@
             
             Statement stmt = con.createStatement();
             
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Utilities");
+            ResultSet rs = stmt.executeQuery("SELECT itemName, itemDescription " +
+                    "FROM cs157a_team8_database.Utilities;");
+
+            out.println("<table border=\"1\" align=\"right\">\n" +
+                    "        <tr>\n" +
+                    "            <th width=\"175\">Item Name</th>\n" +
+                    "            <th width=\"175\">Description</th>\n" +
+                    "        </tr>\n");
+
             while (rs.next()) {
-                out.println(rs.getInt(1) + " " + rs.getString(2) + " " + rs.getString(3) + "<br/><br/>");
-            } 
-            
-            
+
+                out.println("<tr>");
+                out.println("<td style=\"text-align: center;\">" + rs.getString(1) + "</td>" + " "
+                        + "<td style=\"text-align: center;\">" + rs.getString(2) + "</td>" + "</td>");
+                out.println("</tr>");
+            }
+            out.println("</table>");
            
             stmt.close();
             con.close();
