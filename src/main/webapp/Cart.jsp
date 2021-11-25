@@ -3,6 +3,7 @@
 
 <%@ page import="java.sql.*"%>
 <%@ page import="com.cs157a.spartanstore.UserBean" %>
+<%@ page import="java.math.BigDecimal" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -34,16 +35,30 @@
 <title>Spartan Supplies- Cart</title>
 </head>
 <body>
-<div class="upperLabel">
-    <a href="login.jsp">Login</a>
-    <a href="Apparel.jsp">Apparel</a>
-    <a href="Textbooks.jsp">Textbook</a>
-    <a href="Utilities.jsp">Utilities</a>
-    <a href="Technologies.jsp">Technologies</a>
-    <a href="itemMainScreen.jsp">All Items</a>
-    <a href="index.jsp">Home</a>
+<nav>
+    <div class="upperLabel">
+        <%
+            UserBean navbarCurrentUser = null;
+            navbarCurrentUser = (UserBean) session.getAttribute("currentSessionUser");
+            if (navbarCurrentUser == null) {
+        %>
+        <a href="login.jsp">Login</a>
+        <%
+        }
+        else {
+        %>
+        <a href="signout.jsp">Sign Out</a>
+        <%
+            }
+        %>
 
-</div>
+        <a href="Apparel.jsp">Apparel</a>
+        <a href="Textbooks.jsp">Textbook</a>
+        <a href="Utilities.jsp">Utilities</a>
+        <a href="Technologies.jsp">Technologies</a>
+        <a href="index.jsp">Home</a>
+    </div>
+</nav>
 
 
 <div>
@@ -69,8 +84,9 @@
     <% 
      String db = "cs157a_team8_database";
         String user; // assumes database name is the same as username
-          user = "root";
+        user = "root";
         String password = "root";
+        BigDecimal totalPrice = new BigDecimal(0.0);
         try {
            
             java.sql.Connection con; 
@@ -119,7 +135,8 @@
                     "WHERE email =" + "\"" + currentUser.getEmail() + "\"" + ";");
 
             while(rs.next()){
-                out.println(rs.getBigDecimal(1));
+                totalPrice = rs.getBigDecimal(1);
+                out.println(totalPrice);
             }
             out.println("</h3></b>");
 
@@ -130,6 +147,11 @@
         } catch(SQLException e) { 
             out.println("SQLException caught: " + e.getMessage()); 
         }
+
+        session.setAttribute("amountPaid", totalPrice);
     %>
+    <form method="POST" action="/purchase.jsp">
+        <button type="submit">Buy now</button>
+    </form>
 </body>
 </html>

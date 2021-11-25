@@ -1,6 +1,7 @@
 <%--reference: https://www.w3schools.com/howto/howto_js_topnav.asp--%>
 
 <%@ page import="java.sql.*"%>
+<%@ page import="com.cs157a.spartanstore.UserBean" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -27,16 +28,30 @@
 <title>Spartan Supplies- Textbooks</title>
 </head>
 <body>
-<div class="upperLabel">
-    <a href="login.jsp">Login</a>
-    <a href="Apparel.jsp">Apparel</a>
-    <a href="Textbooks.jsp">Textbook</a>
-    <a href="Utilities.jsp">Utilities</a>
-    <a href="Technologies.jsp">Technologies</a>
-    <a href="itemMainScreen.jsp">All Items</a>
-    <a href="index.jsp">Home</a>
+<nav>
+    <div class="upperLabel">
+        <%
+            UserBean navbarCurrentUser = null;
+            navbarCurrentUser = (UserBean) session.getAttribute("currentSessionUser");
+            if (navbarCurrentUser == null) {
+        %>
+        <a href="login.jsp">Login</a>
+        <%
+        }
+        else {
+        %>
+        <a href="signout.jsp">Sign Out</a>
+        <%
+            }
+        %>
 
-</div>
+        <a href="Apparel.jsp">Apparel</a>
+        <a href="Textbooks.jsp">Textbook</a>
+        <a href="Utilities.jsp">Utilities</a>
+        <a href="Technologies.jsp">Technologies</a>
+        <a href="index.jsp">Home</a>
+    </div>
+</nav>
     <h1>Textbooks</h1>
 
 <%

@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.cs157a.spartanstore.UserBean" %><%--
   Created by IntelliJ IDEA.
   User: Edward
   Date: 11/5/2021
@@ -34,17 +34,30 @@
         <title>Spartan Supplies - Login</title>
     </head>
     <body>
-        <nav>
-            <div class="upperLabel">
-                <a href="login.jsp">Login</a>
-                <a href="Apparel.jsp">Apparel</a>
-                <a href="Textbooks.jsp">Textbook</a>
-                <a href="Utilities.jsp">Utilities</a>
-                <a href="Technologies.jsp">Technologies</a>
-                <a href="itemMainScreen.jsp">All Items</a>
-                <a href="index.jsp">Home</a>
-            </div>
-        </nav>
+    <nav>
+        <div class="upperLabel">
+            <%
+                UserBean navbarCurrentUser = null;
+                navbarCurrentUser = (UserBean) session.getAttribute("currentSessionUser");
+                if (navbarCurrentUser == null) {
+            %>
+            <a href="login.jsp">Login</a>
+            <%
+            }
+            else {
+            %>
+            <a href="signout.jsp">Sign Out</a>
+            <%
+                }
+            %>
+
+            <a href="Apparel.jsp">Apparel</a>
+            <a href="Textbooks.jsp">Textbook</a>
+            <a href="Utilities.jsp">Utilities</a>
+            <a href="Technologies.jsp">Technologies</a>
+            <a href="index.jsp">Home</a>
+        </div>
+    </nav>
 
         <main>
             <h1>Login</h1>

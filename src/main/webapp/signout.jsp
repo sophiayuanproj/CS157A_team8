@@ -1,25 +1,26 @@
-<%@ page import="com.cs157a.spartanstore.UserBean" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ page import="com.cs157a.spartanstore.UserBean" %><%--
+  Created by IntelliJ IDEA.
+  User: Edward
+  Date: 11/13/2021
+  Time: 9:31 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <meta charset="UTF-8">
     <style>
         body{
             font-family: Arial;
         }
-        .center {
+        center {
             display: block;
             margin-left: auto;
             margin-right: auto;
         }
-
         .upperLabel {
             overflow: hidden;
             background-color: #474A47;
         }
-
         .upperLabel a {
             float: right;
             font-size: 15px;
@@ -27,15 +28,19 @@
             padding: 14px 20px;
         }
     </style>
-    <title>Spartan Supplies- Search for your class</title>
+    <title>Spartan Supplies - Sign Out</title>
 </head>
 <body>
+<%
+    session.setAttribute("currentSessionUser", null);
+%>
+
 <nav>
     <div class="upperLabel">
         <%
-            UserBean navbarCurrentUser = null;
-            navbarCurrentUser = (UserBean) session.getAttribute("currentSessionUser");
-            if (navbarCurrentUser == null) {
+            UserBean currentUser = null;
+            currentUser = (UserBean) session.getAttribute("currentSessionUser");
+            if (currentUser == null) {
         %>
         <a href="login.jsp">Login</a>
         <%
@@ -54,16 +59,9 @@
         <a href="index.jsp">Home</a>
     </div>
 </nav>
-    <h1>Find Supplies for your class here!</h1>
-    
-     <form method=get>
-  	<b>Enter class name(e.g. CS):</b>  <input type=text name=guess>
- 	 <input type=submit value="Submit">
-  </form>
-    <form method=get>
-        <b>Enter class code(e.g. 157A):</b>  <input type=text name=guess>
-        <input type=submit value="Submit">
-    </form>
 
+<main>
+    <h1>You have successfully signed out.</h1>
+</main>
 </body>
 </html>
