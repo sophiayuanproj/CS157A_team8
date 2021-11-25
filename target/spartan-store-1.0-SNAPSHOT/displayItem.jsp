@@ -95,8 +95,15 @@
 
         while (rs.next()) {
             out.println("<br>");
-            out.println("<img src = \"images/" + rs.getString(1) + "\" alt = \"Item Image\" width= \"300\" height = \"275\">");
+            out.println("<br>");
+            out.println("<br>");
+            out.println("<br>");
+            out.println("   <span style=\"float:right\"></span><a href=\"itemMainScreen.jsp\">Back</a></span>\n" +
+                    "   <br>\n" +
+                    "<br>");
+            out.println("<br>");
             out.println("<center>");
+            out.println("<img src = \"images/" + rs.getString(1) + "\" alt = \"Item Image\" width= \"300\" height = \"275\">");
             out.println("<h1>" + rs.getString(2) + "</h1>");
             out.println("<b>Item price: </b>" + "$" + rs.getBigDecimal(6));
             out.println("<br>");

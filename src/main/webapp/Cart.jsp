@@ -85,22 +85,31 @@
                     "            <th width=\"175\">Item Name</th>\n" +
                     "            <th width=\"175\">Quantity</th>\n" +
                     "            <th width=\"175\">Price</th>\n" +
+                                "            <th width=\"175\">Remove</th>\n" +
                     "        </tr>\n");
 
-            ResultSet rs = stmt.executeQuery("SELECT ItemName, SUM(Quantity), SUM(Price) " +
+            ResultSet rs = stmt.executeQuery("SELECT ItemName, SUM(Quantity), SUM(Price), MAX(listingID) " +
             "FROM ItemsInCart JOIN Shopping USING (listingID) " +
             "WHERE email =" + "\""+ currentUser.getEmail() + "\"" +
-            "GROUP BY ItemName;");
+            " GROUP BY ItemName;");
 
             while (rs.next()) {
                 out.println("<tr>");
                     out.println("<td style=\"text-align: center;\">" + rs.getString(1) + "</td>" + " " +
                             "<td style=\"text-align: center;\">" + rs.getInt(2) + "</td>" + " "
-                            + "<td style=\"text-align: center;\">" + rs.getBigDecimal(3) + "</td>");
+                            + "<td style=\"text-align: center;\">" + rs.getBigDecimal(3) + "</td>" +
+                           "<td style=\"text-align: center;\"><a href=\"itemRemoved.jsp?"+ "qty=" + rs.getInt(2)
+                            + "&listingID=" + rs.getString(4) +"\" />" +
+                            "<img src=\"images/trashcan.png\" " +
+                            "width=\"50\" height=\"50\" >" + "</a></td>");
                     out.println("</tr>");
                 }
                 out.println("</table>");
 
+            out.println("<br>");
+            out.println("<br>");
+            out.println("<br>");
+            out.println("<br>");
             out.println("<br>");
             out.println("<br>");
             out.println("<br>");
