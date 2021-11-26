@@ -148,8 +148,7 @@
 
       }
 
-      File temp = new File("/Users/SophiaYuan/Documents/IntelliJ_Projects/spartan-store/src/main/webapp/images/" + image);
-      FileWriter writer = new FileWriter(temp);
+
 
 
       stmt.close();
