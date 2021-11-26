@@ -4,57 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <style>
-    body{
-      font-family: Arial;
-    }
-    .center {
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .upperLabel {
-      overflow: hidden;
-      background-color: #474A47;
-    }
-
-    .upperLabel a {
-      float: right;
-      font-size: 15px;
-      color: #ffffff;
-      padding: 14px 20px;
-    }
-
-  </style>
     <title>Spartan Supplies- Add your items here</title>
 </head>
 <body>
-<nav>
-  <div class="upperLabel">
-    <%
-      UserBean navbarCurrentUser = null;
-      navbarCurrentUser = (UserBean) session.getAttribute("currentSessionUser");
-      if (navbarCurrentUser == null) {
-    %>
-    <a href="login.jsp">Login</a>
-    <%
-    }
-    else {
-    %>
-    <a href="signout.jsp">Sign Out</a>
-    <%
-      }
-    %>
-
-    <a href="Apparel.jsp">Apparel</a>
-    <a href="Textbooks.jsp">Textbook</a>
-    <a href="Utilities.jsp">Utilities</a>
-    <a href="Technologies.jsp">Technologies</a>
-    <a href="index.jsp">Home</a>
-  </div>
-</nav>
-
+<%@ include file="navbar.jspf" %>
 <div>
   <%
     UserBean currentUser = null;

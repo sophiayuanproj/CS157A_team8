@@ -1,0 +1,43 @@
+<%@ page import="com.cs157a.spartanstore.UserBean" %>
+
+<style>
+    body{
+        font-family: Arial;
+    }
+    .upperLabel {
+        overflow: hidden;
+        background-color: #474A47;
+    }
+    .upperLabel a {
+        float: right;
+        font-size: 15px;
+        color: #ffffff;
+        padding: 14px 20px;
+    }
+</style>
+
+<nav>
+    <div class="upperLabel">
+        <%
+            UserBean navbarCurrentUser = null;
+            navbarCurrentUser = (UserBean) session.getAttribute("currentSessionUser");
+            if (navbarCurrentUser == null) {
+        %>
+        <a href="login.jsp">Login</a>
+        <%
+        }
+        else {
+        %>
+        <a href="account.jsp">Account</a>
+        <%
+            }
+        %>
+
+        <a href="reviews.jsp">Reviews</a>
+        <a href="Apparel.jsp">Apparel</a>
+        <a href="Textbooks.jsp">Textbook</a>
+        <a href="Utilities.jsp">Utilities</a>
+        <a href="Technologies.jsp">Technologies</a>
+        <a href="index.jsp">Home</a>
+    </div>
+</nav>
