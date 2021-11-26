@@ -27,11 +27,11 @@
 <br>
 <br>
 <br>
-<br>
-<br>
 <div>
-    <img src="images/sjsu_img1.jpg" class="center" style = "width: 70%;">
+    <p style="text-align:center;"><img src="images/sjsu_img1.jpg" style = "width: 70%;"></p>
 </div>
-
+<div>
+    <a href="credits.jsp">Image credits</a>
+</div>
 </body>
 </html>

@@ -1,6 +1,8 @@
 <%@ page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.cs157a.spartanstore.UserBean" %>
+<%@ page import="java.io.File" %>
+<%@ page import="java.io.FileWriter" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -98,7 +100,8 @@
       String price = request.getParameter("price");
       String itemType = request.getParameter("type");
 
-      out.println("Item type: " + itemType);
+      //For testing
+      //out.println("Item type: " + itemType);
 
       String isbn = request.getParameter("isbn");
       String author = request.getParameter("author");
@@ -144,6 +147,10 @@
                 size + "\"" + "," + "\"" + color + "\"" + "," + "\"" + desc + "\"" +");");
 
       }
+
+      File temp = new File("/Users/SophiaYuan/Documents/IntelliJ_Projects/spartan-store/src/main/webapp/images/" + image);
+      FileWriter writer = new FileWriter(temp);
+
 
       stmt.close();
       con.close();

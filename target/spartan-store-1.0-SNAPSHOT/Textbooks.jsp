@@ -13,6 +13,14 @@
 <body>
     <%@ include file="navbar.jspf" %>
     <h1>Textbooks</h1>
+    <div>
+        <img src="images/s_s.png" align="left" style = "display: block; width: 15%; height: 15%;" border="0">
+    </div>
+    <br>
+    <a href="Cart.jsp"><img style="float:right" src="images/cart.png" width="50" height="50"></a>
+    <br>
+    <br>
+    <br>
 
 <%
     String db = "cs157a_team8_database";
@@ -28,24 +36,33 @@
 
         Statement stmt = con.createStatement();
 
-        ResultSet rs = stmt.executeQuery("SELECT ItemName, ISBN, Author, ItemDescription " +
-                "FROM Textbooks;");
+        ResultSet rs = stmt.executeQuery("SELECT Textbooks.ItemName, ISBN, Author, ItemDescription, Image, Price, " +
+                "Textbooks.ItemID, Items.ItemType " +
+                "FROM Textbooks JOIN Items USING (ItemID) WHERE ItemType=" +  "\"" + "Textbooks" + "\";");
 
-        out.println("<table border=\"1\" align=\"right\">\n" +
+        out.println("<table border=\"1\" align=\"center\">\n" +
                 "        <tr>\n" +
+                "            <th width=\"175\">Image</th>\n" +
                 "            <th width=\"175\">Item Name</th>\n" +
                 "            <th width=\"175\">ISBN</th>\n" +
                 "            <th width=\"175\">Author</th>\n" +
                 "            <th width=\"175\">Description</th>\n" +
+                "            <th width=\"175\">Price</th>\n" +
                 "        </tr>\n");
 
         while (rs.next()) {
 
             out.println("<tr>");
-            out.println("<td style=\"text-align: center;\">" + rs.getString(1) + "</td>" + " "
+            out.println("<td style=\"text-align: center;\">" + "<img src = \"images/" + rs.getString(5) +
+                    "\" alt = \"Item Image\" width= \"125\" height = \"100\">" + "</td>" +
+                    "<td style=\"text-align: center;\"><a href=\"displayItem.jsp?" + "itemID=" + rs.getString(7) +
+                    "&" + "itemName=" + rs.getString(1) +
+                    "&" + "itemType=" + rs.getString(8) + "\" />" + rs.getString(1) + "</a></td>" + " "
                     + "<td style=\"text-align: center;\">" + rs.getString(2) + "</td>" + "</td>"
                     + "<td style=\"text-align: center;\">" + rs.getString(3) + "</td>" + "</td>"
-                    + "<td style=\"text-align: center;\">" + rs.getString(4) + "</td>" + "</td>");
+                    + "<td style=\"text-align: center;\">" + rs.getString(4) + "</td>"
+                    + "<td style=\"text-align: center;\">" + rs.getString(6) + "</td>"
+                    + "</td>");
             out.println("</tr>");
         }
         out.println("</table>");

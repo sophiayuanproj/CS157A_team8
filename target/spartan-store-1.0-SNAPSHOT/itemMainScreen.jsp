@@ -277,32 +277,33 @@
             }
 
             else if(searchQuery != null) {
+                //stmt execute must come before rs
+                stmt.executeUpdate("INSERT INTO SearchFor (UserEmail, ItemID, ItemName) " +
+                        "VALUES (" + "\"" + currentUser.getEmail() + "\"" +
+                        ", (SELECT ItemID FROM Items WHERE ItemName =" + "\"" + searchQuery + "\"" + ")," +
+                        "\"" + searchQuery + "\"" + ")");
+
                 ResultSet rs = stmt.executeQuery("SELECT Image, ItemName, Stock, Grade, Status, Rating, Class, " +
-                        "ItemID, ItemType,Price FROM Items WHERE ItemName LIKE " + "\"" + searchQuery + "\""
+                        "ItemID, ItemType, Price FROM Items WHERE ItemName LIKE " + "\"" + searchQuery + "\""
                         + " OR " + "LOWER(ItemName) LIKE " + "\"" + "LOWER(" + searchQuery + ")" + "\"");
 
-                if(rs.next() == false){
-                    out.println("<p style=\"color:#FF0000\";>No results for your search query... please try again</p>");
-                    out.println("</table>");
+
+                while (rs.next()) {
+                    out.println("<tr>");
+                    out.println("<td style=\"text-align: center;\">" + "<img src = \"images/" + rs.getString(1) +
+                            "\" alt = \"Item Image\" width= \"125\" height = \"100\">" + "</td>" + " " +
+                            "<td style=\"text-align: center;\"><a href=\"displayItem.jsp?" + "itemID=" + rs.getString(8) +
+                            "&" + "itemName=" + rs.getString(2) +
+                            "&" + "itemType=" + rs.getString(9) + "\" />" + rs.getString(2) + "</a></td>" + " " +
+                            "<td style=\"text-align: center;\">" + rs.getInt(3) + "</td>" + " " +
+                            "<td style=\"text-align: center;\">" + rs.getString(4) + "</td>" + " "
+                            + "<td style=\"text-align: center;\">" + rs.getString(5) + "</td>" + " " +
+                            "<td style=\"text-align: center;\">" + rs.getBigDecimal(6) + "</td>" + " "
+                            + "<td style=\"text-align: center;\">" + rs.getString(7) + "</td>" +
+                            "<td style=\"text-align: center;\">" + "$" + rs.getBigDecimal(10) + "</td>");
+                    out.println("</tr>");
                 }
-                else {
-                    while (rs.next()) {
-                        out.println("<tr>");
-                        out.println("<td style=\"text-align: center;\">" + "<img src = \"images/" + rs.getString(1) +
-                                "\" alt = \"Item Image\" width= \"125\" height = \"100\">" + "</td>" + " " +
-                                "<td style=\"text-align: center;\"><a href=\"displayItem.jsp?" + "itemID=" + rs.getString(9) +
-                                "&" + "itemName=" + rs.getString(2) +
-                                "&" + "itemType=" + rs.getString(10) + "\" />" + rs.getString(2) + "</a></td>" + " " +
-                                "<td style=\"text-align: center;\">" + rs.getInt(3) + "</td>" + " " +
-                                "<td style=\"text-align: center;\">" + rs.getString(4) + "</td>" + " "
-                                + "<td style=\"text-align: center;\">" + rs.getString(5) + "</td>" + " " +
-                                "<td style=\"text-align: center;\">" + rs.getBigDecimal(6) + "</td>" + " "
-                                + "<td style=\"text-align: center;\">" + rs.getString(7) + "</td>" +
-                                "<td style=\"text-align: center;\">" + "$" + rs.getBigDecimal(8) + "</td>");
-                        out.println("</tr>");
-                    }
                     out.println("</table>");
-                }
             }
             else {
                 ResultSet rs = stmt.executeQuery("SELECT Image, ItemName, Stock, Grade, Status, Rating, Class, Price, itemID, " +

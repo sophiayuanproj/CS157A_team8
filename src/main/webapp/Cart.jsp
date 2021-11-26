@@ -82,7 +82,7 @@
             out.println("<br>");
             out.println("<br>");
             out.println("<br>");
-            out.println("<b><h3>Total: ");
+            out.println("<b><div style=\"float:right;\"><h3>Total: ");
             rs = stmt.executeQuery("SELECT SUM(Price)\n" +
                     "FROM ItemsInCart JOIN Shopping USING (listingID)\n" +
                     "WHERE email =" + "\"" + currentUser.getEmail() + "\"" + ";");
@@ -91,7 +91,7 @@
                 totalPrice = rs.getBigDecimal(1);
                 out.println(totalPrice);
             }
-            out.println("</h3></b>");
+            out.println("</h3></div></b>");
 
 
            
@@ -103,8 +103,14 @@
 
         session.setAttribute("amountPaid", totalPrice);
     %>
+<br>
+<br>
+<br>
+<br>
+<div style="float:right;">
     <form method="POST" action="/purchase.jsp">
         <button type="submit">Buy now</button>
     </form>
+</div>
 </body>
 </html>

@@ -103,8 +103,8 @@
         con.close();
 
     } catch(SQLException e) {
-        //out.println("SQLException caught: " + e.getMessage());
-        out.println("Please enter this page from item selection");
+        out.println("SQLException caught: " + e.getMessage());
+        //out.println("Please enter this page from item selection");
     }
 
 %>
