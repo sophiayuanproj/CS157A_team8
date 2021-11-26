@@ -31,7 +31,7 @@
             padding: 14px 20px;
         }
     </style>
-    <title>Orders</title>
+    <title>Your Orders</title>
 </head>
 <body>
 <nav>
@@ -59,6 +59,7 @@
     </div>
 </nav>
 <main>
+    <h1>Your Orders</h1>
     <%
         String user = "root";
         String password = "root";
