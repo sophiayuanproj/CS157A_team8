@@ -23,6 +23,7 @@
             String customerEmail = navbarCurrentUser.getEmail();
             String sellerEmail = request.getParameter("write-review");
             BigDecimal updatedRating = new BigDecimal(0.0);
+            long reviewID;
 
             try (
                     Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs157a_team8_database?autoReconnect=true&useSSL=false", user, password);
@@ -33,12 +34,59 @@
                 String body = request.getParameter("review-body");
                 BigDecimal rating = new BigDecimal(request.getParameter("review-rating"));
 
-                PreparedStatement statement = connection.prepareStatement(query);
+                PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
                 statement.setString(1, customerEmail);
                 statement.setString(2, sellerEmail);
                 statement.setString(3, title);
                 statement.setString(4, body);
                 statement.setBigDecimal(5, rating);
+
+                int affectedRows = statement.executeUpdate();
+
+                if (affectedRows == 0) {
+                    throw new SQLException("Creating message failed, no rows affected.");
+                }
+
+                try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        reviewID = generatedKeys.getLong(1);
+                    }
+                    else {
+                        throw new SQLException("Creating review failed, no ID obtained.");
+                    }
+                }
+            }
+        %>
+
+        <%
+            try (
+                    Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs157a_team8_database?autoReconnect=true&useSSL=false", user, password);
+            ) {
+                String query = "INSERT INTO writes(customer_email, review_id) " +
+                        "VALUES(?, ?)";
+
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setString(1, customerEmail);
+                statement.setLong(2, reviewID);
+
+                int affectedRows = statement.executeUpdate();
+
+                if (affectedRows == 0) {
+                    throw new SQLException("Creating message failed, no rows affected.");
+                }
+            }
+        %>
+
+        <%
+            try (
+                    Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs157a_team8_database?autoReconnect=true&useSSL=false", user, password);
+            ) {
+                String query = "INSERT INTO have(seller_email, review_id) " +
+                        "VALUES(?, ?)";
+
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setString(1, sellerEmail);
+                statement.setLong(2, reviewID);
 
                 int affectedRows = statement.executeUpdate();
 
