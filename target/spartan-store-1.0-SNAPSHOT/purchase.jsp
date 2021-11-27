@@ -54,6 +54,24 @@
                 }
             }
         %>
+        <%
+            try (
+                    Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs157a_team8_database?autoReconnect=true&useSSL=false", user, password);
+            ) {
+                String query = "INSERT INTO make(customer_email, order_id) VALUES(?, ?)";
+                String email = navbarCurrentUser.getEmail();
+
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setString(1, email);
+                statement.setLong(2, orderID);
+
+                int affectedRows = statement.executeUpdate();
+
+                if (affectedRows == 0) {
+                    throw new SQLException("Creating order failed, no rows affected.");
+                }
+            }
+        %>
         <h1>Congratulations! Your order ID is <%= orderID %>.</h1>
     </main>
 </body>

@@ -40,11 +40,6 @@ public class UserDAO {
                         + email
                         + "'";
 
-        // "System.out.println" prints in the console; Normally used to trace the process
-        System.out.println("Your email is " + email);
-        System.out.println("Your password is " + password);
-        System.out.println("Query: " + searchQuery);
-
         try {
             //connect to DB
             currentCon = ConnectionManager.getConnection();
@@ -65,12 +60,10 @@ public class UserDAO {
 
                 if (password.equals(rs.getString("password"))) {
                     String name = rs.getString("name");
-                    System.out.println("Welcome " + name);
                     bean.setName(name);
                     bean.setValid(true);
                 }
                 else {
-                    System.out.println("Sorry, you are not a registered user! Please sign up first");
                     bean.setValid(false);
                 }
             }
