@@ -108,6 +108,10 @@
       String color = request.getParameter("color");
       String size = request.getParameter("size");
 
+      if(image == ""){
+          image = "default.png";
+      }
+
       java.sql.Connection con;
       Class.forName("com.mysql.jdbc.Driver");
       con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs157a_team8_database?autoReconnect=true&useSSL=false", user, password);
@@ -154,8 +158,8 @@
       stmt.close();
       con.close();
     }catch(SQLException e){
-        //out.println("SQLException caught: " + e.getMessage());
-      out.println("Please fill in every blank required");
+        out.println("SQLException caught: " + e.getMessage());
+      //out.println("Please fill in every blank required");
       }
 
   %>
