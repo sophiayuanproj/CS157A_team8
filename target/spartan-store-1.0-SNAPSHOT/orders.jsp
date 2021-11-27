@@ -38,10 +38,9 @@
             while (rs.next()) {
 
                 out.println("<tr>");
-                out.println("<td style=\"text-align: center;\">" + rs.getString(2) + "</td>" + " "
-                        + "<td style=\"text-align: center;\">" + rs.getString(4) + "</td>" + "</td>"
-                        + "<td style=\"text-align: center;\">" + rs.getString(5) + "</td>" + "</td>")
-                        + "<td style=\"text-align: center;\">" + rs.getBigDecimal(6) + "</td>" + "</td>");
+                out.println("<td style=\"text-align: center;\">" + rs.getString(1) + "</td>" + " "
+                        + "<td style=\"text-align: center;\">" + rs.getString(3) + "</td>" + "</td>"
+                        + "<td style=\"text-align: center;\">" + rs.getBigDecimal(4) + "</td>" + "</td>");
                 out.println("</tr>");
             }
             out.println("</table>");

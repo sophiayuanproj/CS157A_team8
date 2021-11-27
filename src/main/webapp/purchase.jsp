@@ -22,25 +22,6 @@
             String password = "root";
             long orderID;
 
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs157a_team8_database?autoReconnect=true&useSSL=false", user, password);
-
-                Statement statement = connection.createStatement();
-                String email = navbarCurrentUser.getEmail();
-                String shippingStatus = "packaging";
-                BigDecimal amountPaid = (BigDecimal) session.getAttribute("amountPaid");
-
-                int i = statement.executeUpdate("INSERT INTO orders(customer_email, shipping_status, amount_paid) VALUES('" + email + "','" + shippingStatus + "','" + amountPaid + "')");
-
-                connection.close();
-                statement.close();
-            }
-            catch(Exception e) {
-                System.out.print(e);
-                e.printStackTrace();
-            }
-
             try (
                     Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs157a_team8_database?autoReconnect=true&useSSL=false", user, password);
             ) {
