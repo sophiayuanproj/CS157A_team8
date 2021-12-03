@@ -13,6 +13,8 @@
 <body>
     <%@ include file="navbar.jspf" %>
     <h1>Your Account</h1>
+    <a href="addItem.jsp">Add Item</a>
+    <br />
     <a href="orders.jsp">Your Orders</a>
     <br />
     <a href="messages.jsp">Your Messages</a>
